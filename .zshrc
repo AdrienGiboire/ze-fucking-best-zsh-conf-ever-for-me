@@ -1,12 +1,8 @@
 #!/bin/zsh
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Adrien Giboire <adrien.giboire@gmail.com>
-#
 
 LC_ALL="en_US"
+
+source ~/.zsh/bindkeys.zsh
 
 # Disable auto-correct
 unsetopt correct_all
@@ -28,16 +24,6 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:$HOME/.dotfiles/bin"
 export PATH="$PATH:/usr/local/share/npm/bin"
 
-# }}}
-
-# ZSH CONFIG {{{
-
-# Tell ZSH to use Vim mode navigation
-bindkey -v
-
-autoload -U promptinit && promptinit
-autoload -U compinit && compinit -u
-#
 # }}}
 
 # CHRUBY {{{
