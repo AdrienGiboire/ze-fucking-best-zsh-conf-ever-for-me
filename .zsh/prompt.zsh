@@ -1,26 +1,24 @@
-function git_prompt_info {
-  local ref=$(=git symbolic-ref HEAD 2> /dev/null)
-  local gitst="$(=git status 2> /dev/null)"
-
-  if [[ -f .git/MERGE_HEAD ]]; then
-    if [[ ${gitst} =~ "unmerged" ]]; then
-      gitstatus=" %{$fg[red]%}unmerged%{$reset_color%}"
-    else
-      gitstatus=" %{$fg[green]%}merged%{$reset_color%}"
-    fi
-  elif [[ ${gitst} =~ "Changes to be committed" ]]; then
-    gitstatus=" %{$fg[blue]%}!%{$reset_color%}"
-  elif [[ ${gitst} =~ "use \"git add" ]]; then
-    gitstatus=" %{$fg[red]%}!%{$reset_color%}"
-  elif [[ -n `git checkout HEAD 2> /dev/null | grep ahead` ]]; then
-    gitstatus=" %{$fg[yellow]%}*%{$reset_color%}"
-  else
-    gitstatus=''
-  fi
-
-  if [[ -n $ref ]]; then
-    echo "%{$fg_bold[green]%}/${ref#refs/heads/}%{$reset_color%}$gitstatus"
+function git_branch {
+  if [ -e .git ]; then
+    local current_branch="$(git b | grep -e '*' | cut -d ' ' -f2)"
+    echo "(${PR_BOLD_BLUE}${current_branch}%{$reset_color%})"
   fi
 }
 
-PROMPT='%~%<< $(git_prompt_info)${PR_BOLD_WHITE}>%{${reset_color}%} '
+function ruby_version {
+  if [ -e .ruby-version ]; then
+    local ruby_version="$(cat .ruby-version)"
+    echo "(${PR_YELLOW}${ruby_version}%{$reset_color%})"
+  fi
+}
+
+typeset -g current_pwd="$(pwd | sed -e "s,^$HOME,~,")"
+
+function _update_current_pwd {
+  current_pwd="$(pwd | sed -e "s,^$HOME,~,")"
+}
+
+chpwd_functions+=(_update_ruby_version _update_current_pwd)
+PROMPT='
+${PR_BOLD_GREEN}${current_pwd}%{$reset_color%} $(ruby_version) $(git_branch)
+> '

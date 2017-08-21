@@ -1,10 +1,15 @@
 #!/bin/zsh
 
-LC_ALL="en_US"
+# CHRUBY {{{
 
+[[ -s /usr/local/opt/chruby/share/chruby/chruby.sh ]] && . /usr/local/opt/chruby/share/chruby/chruby.sh
+[[ -s /usr/local/opt/chruby/share/chruby/auto.sh ]] && . /usr/local/opt/chruby/share/chruby/auto.sh
+
+# }}}
+
+source ~/.zsh/colors.zsh
 source ~/.zsh/aliases.zsh
 source ~/.zsh/bindkeys.zsh
-source ~/.zsh/colors.zsh
 source ~/.zsh/exports.zsh
 source ~/.zsh/functions.zsh
 source ~/.zsh/history.zsh
@@ -12,13 +17,6 @@ source ~/.zsh/prompt.zsh
 
 # Disable auto-correct
 unsetopt correct_all
-
-# CHRUBY {{{
-
-[[ -s /usr/local/opt/chruby/share/chruby/chruby.sh ]] && . /usr/local/opt/chruby/share/chruby/chruby.sh
-[[ -s /usr/local/opt/chruby/share/chruby/auto.sh ]] && . /usr/local/opt/chruby/share/chruby/auto.sh
-
-# }}}
 
 # BUNDLER EXEC {{{
 
