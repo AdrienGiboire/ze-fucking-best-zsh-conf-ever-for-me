@@ -4,6 +4,7 @@ LC_ALL="en_US"
 
 source ~/.zsh/aliases.zsh
 source ~/.zsh/bindkeys.zsh
+source ~/.zsh/colors.zsh
 source ~/.zsh/exports.zsh
 source ~/.zsh/functions.zsh
 source ~/.zsh/history.zsh
@@ -11,25 +12,6 @@ source ~/.zsh/prompt.zsh
 
 # Disable auto-correct
 unsetopt correct_all
-
-# EXPORTS {{{
-export EDITOR='vim'
-
-# Compilation flags
-export ARCHFLAGS="-arch x86_64"
-
-# Postgres data file path
-export PGDATA='/usr/local/var/postgres/data'
-
-# Set locale
-export LANG=en_US.UTF-8
-
-# PATH
-export PATH="/usr/local/bin:$PATH"
-export PATH="$PATH:$HOME/.dotfiles/bin"
-export PATH="$PATH:/usr/local/share/npm/bin"
-
-# }}}
 
 # CHRUBY {{{
 
