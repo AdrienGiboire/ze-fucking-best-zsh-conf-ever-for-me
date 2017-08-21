@@ -6,6 +6,7 @@ source ~/.zsh/aliases.zsh
 source ~/.zsh/bindkeys.zsh
 source ~/.zsh/exports.zsh
 source ~/.zsh/functions.zsh
+source ~/.zsh/history.zsh
 
 # Disable auto-correct
 unsetopt correct_all
