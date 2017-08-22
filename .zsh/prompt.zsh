@@ -12,8 +12,8 @@ function _ruby_version {
   fi
 }
 
-typeset -g ruby_version="$(_ruby_version)"
-typeset -g current_pwd="$(pwd | sed -e "s,^$HOME,~,")"
+ruby_version="$(_ruby_version)"
+current_pwd="$(pwd | sed -e "s,^$HOME,~,")"
 
 function _update_current_pwd {
   current_pwd="$(pwd | sed -e "s,^$HOME,~,")"
