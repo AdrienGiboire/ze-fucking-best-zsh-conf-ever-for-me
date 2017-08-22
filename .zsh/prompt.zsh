@@ -6,10 +6,13 @@ function git_branch {
 }
 
 function _ruby_version {
-  if [ -e .ruby-version ]; then
-    local ruby_version="$(cat .ruby-version)"
-    echo " (${PR_YELLOW}${ruby_version}%{$reset_color%})"
-  fi
+  chruby >/dev/null 2>&1 && {
+    local ruby_version="$(chruby | grep -e '*' | cut -d ' ' -f3)"
+    [[ -z "$ruby_version" ]] && [[ -e .ruby-version ]] && {
+      ruby_version="$(cat .ruby-version)"
+    }
+    [[ -n "$ruby_version" ]] && echo " (${PR_YELLOW}${ruby_version}%{$reset_color%})"
+  }
 }
 
 ruby_version="$(_ruby_version)"
