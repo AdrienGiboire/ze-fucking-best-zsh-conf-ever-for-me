@@ -14,6 +14,7 @@ source ~/.zsh/exports.zsh
 source ~/.zsh/functions.zsh
 source ~/.zsh/history.zsh
 source ~/.zsh/prompt.zsh
+source ~/.zsh/setopts.zsh
 
 # Disable auto-correct
 unsetopt correct_all
