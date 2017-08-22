@@ -1,8 +1,8 @@
 function git_branch {
-  if [ -e .git ]; then
+  git b >/dev/null 2>&1 && {
     local current_branch="$(git b | grep -e '*' | cut -d ' ' -f2)"
     echo " (${PR_BLUE}${current_branch}%{$reset_color%})"
-  fi
+  }
 }
 
 function _ruby_version {
