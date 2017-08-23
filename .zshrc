@@ -12,6 +12,8 @@ source ~/.zsh/aliases.zsh
 source ~/.zsh/bindkeys.zsh
 source ~/.zsh/exports.zsh
 source ~/.zsh/functions.zsh
+source ~/.zsh/functions/rails.zsh
+source ~/.zsh/functions/postgres.zsh
 source ~/.zsh/history.zsh
 source ~/.zsh/prompt.zsh
 source ~/.zsh/setopts.zsh

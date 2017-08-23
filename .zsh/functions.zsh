@@ -20,35 +20,6 @@ function extract {
   fi
 }
 
-function migrate {
-  # if we have a name for the migration AND some `field:type` property
-  if [ 2 -le $# ]; then
-    drails g migration $@
-    drake db:migrate
-
-  # if we just have a migration name
-  elif [ 1 -le $# ]; then
-    drails g migration $@
-
-  # if we have nothing we just migrate the DB
-  elif [ 0 -le $# ]; then
-    drake db:migrate
-  fi
-}
-
-function up {
-  local current_branch=`git rev-parse --abbrev-ref HEAD`
-  git stash save "before updating the master branch" &&
-  git co master &&
-  git fa &&
-  git pullr &&
-  git co $current_branch &&
-  git rebase master &&
-  bundle install &&
-  drake db:migrate &&
-  git stash pop
-}
-
 function deploy {
   local current_branch=`git rev-parse --abbrev-ref HEAD`
   local target_branch=$1
@@ -81,26 +52,4 @@ function update_current_branch {
   git co $current_branch
   git merge $source_branch
   git stash pop
-}
-
-function update_db {
-  echo "dropping db" && drake db:drop
-  echo "creating db" && drake db:create
-  echo "migrating db" && drake db:migrate
-
-  cd /tmp
-  if [ -f /tmp/octoly_production.sql ]; then
-    rm -fr /tmp/octoly_production.sql
-  fi
-
-  echo "dumping data from production"
-  source ~/.env
-  ssh octo-redis "PGPASSWORD=$PG_PASS pg_dump --data-only -h $PG_HOST -U $PG_USER -d $PG_DB -c > octoly_production.sql"
-
-  echo "downloading data" && scp octo-redis:/mnt/tmp/octoly_production.sql /tmp
-  echo "restoring data"
-  PGPASSWORD=octoly psql -U octoly -d octoly_development < octoly_production.sql
-
-  echo "clean production" && ssh octo-redis 'rm -fr /mnt/tmp/octoly_production.sql'
-  cd -
 }
